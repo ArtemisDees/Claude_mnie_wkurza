@@ -95,7 +95,7 @@ h1, h2, h3 { font-family: "Archivo", sans-serif; font-weight: 800; font-stretch:
 /* Ceny i telefon: równe odstępy cyfr */
 .cennik .ile, .godziny dd, a[href^="tel"] { font-variant-numeric: tabular-nums; font-weight: 700; letter-spacing: 0.02em; }
 :focus-visible { outline: 3px solid var(--zloto-jasne); outline-offset: 3px; border-radius: 4px; }
-.zloty, .hero h1, .naglowek h2, .dojazd h2, .grupa h3 {
+.zloty, .hero h1, .grupa h3 {
   background: var(--metal); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
   padding-bottom: .08em; /* żeby ogonki liter (ę, ą, j) nie były ucinane */
 }
@@ -107,13 +107,14 @@ h1, h2, h3 { font-family: "Archivo", sans-serif; font-weight: 800; font-stretch:
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
   min-height: 3.25rem; padding: .8rem 1.5rem;
-  font: inherit; font-weight: 700; font-stretch: 112%; line-height: 1.2; text-decoration: none; text-align: center;
-  border: 2px solid transparent; border-radius: 6px; cursor: pointer;
-  transition: transform .15s ease, background-color .15s ease, border-color .15s ease;
+  font: inherit; font-size: .92rem; font-weight: 700; font-stretch: 112%; line-height: 1.2; text-decoration: none; text-align: center;
+  text-transform: uppercase; letter-spacing: .07em;
+  border: 2px solid transparent; border-radius: 4px; cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease, background-color .15s ease, border-color .15s ease;
 }
 .btn:active { transform: translateY(1px); }
 .btn-glowny { background: var(--metal); color: var(--czern); border-color: #F2D27C; box-shadow: 0 0 1.2rem -.4rem rgba(217,174,67,.7); }
-.btn-glowny:hover { filter: brightness(1.1); }
+.btn-glowny:hover { transform: translateY(-2px); box-shadow: 0 .4rem 1.4rem -.3rem rgba(217,174,67,.75); }
 .btn-obrys { border-color: var(--zloto); background: transparent; color: var(--zloto-jasne); }
 .btn-obrys:hover { background: rgba(217,174,67,.14); }
 .btn svg { width: 1.25rem; height: 1.25rem; flex: none; }
@@ -132,7 +133,7 @@ h1, h2, h3 { font-family: "Archivo", sans-serif; font-weight: 800; font-stretch:
 
 .hero { display: grid; gap: 1.25rem; padding-block: 0 3.5rem; }
 .hero-tekst { max-width: 40rem; position: relative; z-index: 1; }
-.hero h1 { font-size: clamp(1.9rem, 6.6vw, 4rem); }
+.hero h1 { font-size: clamp(1.9rem, 6.6vw, 4rem); filter: drop-shadow(0 4px 18px rgba(0,0,0,.85)); }
 .hero h1 span { display: block; }
 .hero .lead { margin-top: 1.25rem; font-size: clamp(1.1rem, 2.2vw, 1.3rem); color: #C9C2B0; max-width: 34rem; }
 .hero .adres { margin-top: 1.25rem; display: inline-flex; align-items: baseline; gap: .6rem; font-weight: 600; color: #fff; text-decoration: none; border-bottom: 2px solid var(--zloto); padding-bottom: .15rem; }
@@ -166,6 +167,8 @@ h1, h2, h3 { font-family: "Archivo", sans-serif; font-weight: 800; font-stretch:
 /* ───── usługi i ceny ───── */
 .sekcja { padding-block: clamp(3.5rem, 8vw, 6.5rem); }
 .naglowek { display: grid; gap: 1rem; margin-bottom: clamp(2rem, 5vw, 3.5rem); }
+.naglowek h2, .dojazd h2 { color: var(--tekst); position: relative; padding-bottom: .55rem; justify-self: start; }
+.naglowek h2::after, .dojazd h2::after { content: ""; position: absolute; left: 0; bottom: 0; width: 4rem; height: 3px; background: var(--metal); }
 .naglowek h2 { font-size: clamp(1.6rem, 4.4vw, 2.7rem); }
 .naglowek p { color: var(--szary); max-width: 38rem; }
 
@@ -186,7 +189,7 @@ h1, h2, h3 { font-family: "Archivo", sans-serif; font-weight: 800; font-stretch:
 .cennik li:last-child { border-bottom: 0; }
 .cennik .co { font-weight: 500; }
 .cennik .kropki { flex: 1; min-width: 1.5rem; border-bottom: 2px dotted #5B5340; transform: translateY(-.28em); }
-.cennik .ile { font-stretch: 112%; white-space: nowrap; color: var(--zloto-jasne); }
+.cennik .ile { font-stretch: 112%; font-size: 1.12rem; white-space: nowrap; color: var(--zloto-jasne); }
 .cennik .ile small { font-weight: 500; font-stretch: 100%; font-size: .82em; color: var(--szary); margin-right: .3em; }
 
 /* ───── umów wizytę ───── */
@@ -230,7 +233,7 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zl
 .z-hala .telefony li:first-child { border-top: 0; }
 .z-hala .godziny div:last-child { border-bottom: 0; }
 .dojazd { display: grid; gap: 2.5rem; }
-.dojazd h2 { font-size: clamp(1.6rem, 4.4vw, 2.7rem); margin-bottom: 1.5rem; }
+.dojazd h2 { font-size: clamp(1.6rem, 4.4vw, 2.7rem); margin-bottom: 1.5rem; display: inline-block; }
 .dojazd address { font-style: normal; font-size: clamp(1.5rem, 4vw, 2.4rem); font-weight: 800; font-stretch: 125%; line-height: 1.15; color: var(--tekst); }
 .dojazd address span { display: block; font-size: max(1rem, .55em); font-weight: 500; font-stretch: 100%; color: var(--szary); margin-top: .5rem; }
 .dojazd .btn { margin-top: 1.75rem; }
@@ -285,6 +288,7 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zl
   html { scroll-behavior: auto; }
   .dol { transition: none; }
   .btn, .wybor span { transition: none; }
+  .btn-glowny:hover { transform: none; }
 }
 </style>
 </head>
