@@ -6,7 +6,8 @@
     nazwa firmy ......... CHUD-POL Garage / CHUD-POL GARAGE
     adres ............... Legnicka 56 / 59-225 Chojnów
     telefon ............. 732 931 287  oraz  +48732931287  oraz  48732931287 (WhatsApp, SMS)
-    godziny otwarcia .... Pn–Pt 8:00–17:00, Sob 8:00–13:00 (góra strony, sekcja Dojazd, blok ld+json)
+    godziny otwarcia .... Pn–Pt 8:00–17:00, Sob 8:00–13:00 (góra strony, sekcja Dojazd, blok ld+json
+                          ORAZ tablica GODZINY w skrypcie tuż pod </style>: od niej zależy wersja dzienna i nocna)
     cennik .............. sekcja <section id="uslugi">
   Po podpięciu domeny: dopisz pełny adres strony w og:image i og:url (oznaczone niżej).
   Strona nie korzysta z żadnych usług zewnętrznych: czcionki, grafiki i film są w folderze assets/.
@@ -141,7 +142,7 @@ h1, h2, h3 { font-family: "Archivo", sans-serif; font-weight: 800; font-stretch:
 .hero-akcje { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: .8rem; }
 .hero-akcje .btn { flex: 1 1 14rem; }
 
-.hero .godziny-krotko { margin-top: .7rem; color: #C9C2B0; font-variant-numeric: tabular-nums; }
+.hero .godziny-krotko { margin-top: .9rem; color: #C9C2B0; font-variant-numeric: tabular-nums; display: grid; gap: .25rem; }
 
 /* film z warsztatu na górze strony; pod nim leży nieruchomy ostatni kadr */
 .kino { position: relative; margin-inline: calc(var(--bok) * -1); aspect-ratio: 16 / 9; overflow: hidden; background: #000;
@@ -150,6 +151,37 @@ h1, h2, h3 { font-family: "Archivo", sans-serif; font-weight: 800; font-stretch:
 .kino img, .kino video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .kino video { transition: opacity .3s linear; }
 .kino video.koniec { opacity: 0; visibility: hidden; }
+
+/* status otwarcia */
+.status { display: flex; align-items: center; gap: .55rem; font-weight: 700; color: var(--zloto-jasne); }
+.status:empty { display: none; }
+.status::before { content: ""; width: .6rem; height: .6rem; border-radius: 50%; background: #7BC67B; box-shadow: 0 0 .5rem #7BC67B; flex: none; }
+html.zamkniete .status { color: var(--szary); }
+html.zamkniete .status::before { background: #6B6558; box-shadow: none; }
+.gdy-zamkniete-w-tekscie { display: none; }
+html.zamkniete .gdy-zamkniete-w-tekscie { display: inline; color: var(--zloto-jasne); }
+.po-godzinach { margin-top: 1rem; color: var(--szary); font-size: .95rem; }
+.po-godzinach a { color: var(--zloto-jasne); white-space: nowrap; }
+
+/* elementy widoczne tylko w jednej z wersji */
+.gdy-zamkniete { display: none !important; }
+html.zamkniete .gdy-otwarte { display: none !important; }
+html.zamkniete a.btn.gdy-zamkniete { display: inline-flex !important; }
+html.zamkniete p.gdy-zamkniete { display: block !important; }
+
+/* ───── wersja nocna: po zamknięciu ta sama strona, ale przygaszona ───── */
+html.zamkniete {
+  --metal: linear-gradient(180deg, #BCA468 0%, #92773A 42%, #6E5722 68%, #9A8344 100%);
+  --kreska: linear-gradient(90deg, rgba(110,88,32,0) 0%, #6E5820 15%, #A38A48 50%, #6E5820 85%, rgba(110,88,32,0) 100%);
+  --zloto: #9C8038; --zloto-jasne: #C4A961; --zloto-ciemne: #4D3F1B;
+}
+html.zamkniete .btn-glowny { box-shadow: none; border-color: #A38A48; }
+html.zamkniete .kino video { display: none; }
+html.zamkniete .kino img { filter: brightness(.4) saturate(.55); }
+html.zamkniete .kafel img { filter: brightness(.7) saturate(.7); }
+html.zamkniete .z-hala::before { opacity: .22; filter: saturate(.5); }
+html.zamkniete .sezon { background: linear-gradient(90deg, #6E5722, #A38A48 50%, #6E5722); }
+html.zamkniete .dol { grid-template-columns: 1fr; }
 
 /* informacja sezonowa (pokazuje się sama jesienią i wiosną) */
 .sezon { display: block; background: linear-gradient(90deg, #C2932B, #F2D27C 50%, #C2932B); color: var(--czern); text-align: center; text-decoration: none; font-weight: 700; padding: .6rem var(--bok); position: relative; z-index: 3; }
@@ -239,6 +271,7 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zl
 .dojazd .btn { margin-top: 1.75rem; }
 .godziny { margin-top: 2.25rem; }
 .godziny h3 { font-size: .95rem; color: var(--szary); margin-bottom: .5rem; }
+.godziny .status { margin-bottom: .35rem; }
 .godziny dl { margin: 0; }
 .godziny div { display: flex; justify-content: space-between; gap: 1rem; padding-block: .7rem; border-bottom: 1px solid var(--linia); }
 .godziny dt { font-weight: 500; }
@@ -291,6 +324,35 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zl
   .btn-glowny:hover { transform: none; }
 }
 </style>
+<script>
+// Godziny otwarcia: dzień tygodnia (0 = niedziela) -> [otwarcie, zamknięcie] w minutach od północy.
+// Od tej tablicy zależy, czy strona pokazuje wersję dzienną, czy nocną. Czas liczony jest dla Polski.
+var GODZINY = { 1: [480, 1020], 2: [480, 1020], 3: [480, 1020], 4: [480, 1020], 5: [480, 1020], 6: [480, 780] };
+function stanWarsztatu() {
+  var dni = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 }, dz, min;
+  try {
+    var cz = {}; new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Warsaw', weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false })
+      .formatToParts(new Date()).forEach(function (x) { cz[x.type] = x.value; });
+    dz = dni[cz.weekday]; min = (parseInt(cz.hour, 10) % 24) * 60 + parseInt(cz.minute, 10);
+  } catch (e) { var d = new Date(); dz = d.getDay(); min = d.getHours() * 60 + d.getMinutes(); }
+  var godz = function (m) { return Math.floor(m / 60) + ':' + ('0' + (m % 60)).slice(-2); };
+  var dzis = GODZINY[dz], otwarte = !!dzis && min >= dzis[0] && min < dzis[1], tekst;
+  if (otwarte) tekst = 'Otwarte do ' + godz(dzis[1]);
+  else {
+    var nazwy = ['w niedzielę', 'w poniedziałek', 'we wtorek', 'w środę', 'w czwartek', 'w piątek', 'w sobotę'];
+    tekst = 'Zamknięte';
+    for (var i = 0; i < 8; i++) {
+      var g = GODZINY[(dz + i) % 7];
+      if (g && (i > 0 || min < g[0])) { tekst += ', otwieramy ' + (i === 0 ? 'dziś' : i === 1 ? 'jutro' : nazwy[(dz + i) % 7]) + ' o ' + godz(g[0]); break; }
+    }
+  }
+  // Podgląd obu wersji niezależnie od pory: adres strony z dopiskiem #otwarte albo #zamkniete.
+  if (location.hash === '#otwarte') { otwarte = true; tekst = 'Otwarte (podgląd)'; }
+  if (location.hash === '#zamkniete') { otwarte = false; tekst = 'Zamknięte (podgląd)'; }
+  return { otwarte: otwarte, tekst: tekst };
+}
+document.documentElement.classList.toggle('zamkniete', !stanWarsztatu().otwarte);
+</script>
 </head>
 <body>
 <a class="skip" href="#uslugi">Przejdź do treści</a>
@@ -322,14 +384,16 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zl
         <h1><span>Mechanika,</span> <span>wulkanizacja</span> <span>i części</span></h1>
         <p class="lead">Naprawiamy samochody osobowe, zajmujemy się oponami i sprzedajemy części, podzespoły oraz materiały eksploatacyjne.</p>
         <a class="adres" href="#dojazd">Legnicka 56, 59-225 Chojnów</a>
-        <p class="godziny-krotko">Pn–Pt 8:00–17:00, Sob 8:00–13:00</p>
+        <p class="godziny-krotko"><span class="status" data-status></span><span>Pn–Pt 8:00–17:00, Sob 8:00–13:00</span></p>
         <div class="hero-akcje">
-          <a class="btn btn-glowny" href="#wizyta">Umów wizytę</a>
-          <a class="btn btn-obrys" href="tel:+48732931287">
+          <a class="btn btn-glowny gdy-otwarte" href="tel:+48732931287">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
             Zadzwoń: 732 931 287
           </a>
+          <a class="btn btn-obrys gdy-otwarte" href="#wizyta">Umów wizytę</a>
+          <a class="btn btn-glowny gdy-zamkniete" href="#wizyta">Zostaw wiadomość</a>
         </div>
+        <p class="po-godzinach gdy-zamkniete">Telefon odbieramy w godzinach otwarcia: <a href="tel:+48732931287">732 931 287</a></p>
       </div>
     </div>
   </div>
@@ -399,7 +463,7 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zl
     <div class="wrap">
       <div class="naglowek">
         <h2>Umów wizytę</h2>
-        <p>Zaznacz, czego potrzebujesz, i dopisz kilka słów. Gotowa wiadomość otworzy się w WhatsAppie albo w SMS-ach w Twoim telefonie. Wysyłasz ją sam, jednym dotknięciem.</p>
+        <p>Zaznacz, czego potrzebujesz, i dopisz kilka słów. Gotowa wiadomość otworzy się w WhatsAppie albo w SMS-ach w Twoim telefonie. Wysyłasz ją sam, jednym dotknięciem.<span class="gdy-zamkniete-w-tekscie"> Teraz jest zamknięte, odpiszemy po otwarciu.</span></p>
       </div>
 
       <form class="kreator" id="kreator" novalidate>
@@ -468,6 +532,7 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zl
         </ul>
         <div class="godziny">
           <h3>Godziny otwarcia</h3>
+          <p class="status" data-status></p>
           <dl>
             <div><dt>Poniedziałek–piątek</dt><dd>8:00–17:00</dd></div>
             <div><dt>Sobota</dt><dd>8:00–13:00</dd></div>
@@ -480,8 +545,9 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zl
 </main>
 
 <div class="dol" id="dol">
-  <a class="btn btn-glowny" href="tel:+48732931287">Zadzwoń</a>
-  <a class="btn btn-obrys" href="#wizyta">Umów wizytę</a>
+  <a class="btn btn-glowny gdy-otwarte" href="tel:+48732931287">Zadzwoń</a>
+  <a class="btn btn-obrys gdy-otwarte" href="#wizyta">Umów wizytę</a>
+  <a class="btn btn-glowny gdy-zamkniete" href="#wizyta">Zostaw wiadomość</a>
 </div>
 
 <footer class="stopka">
@@ -493,12 +559,24 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zl
 
 <script>
 (function () {
+  // Status otwarcia: tekst przy godzinach, sprawdzany co minutę, żeby strona sama przeszła w wersję nocną.
+  function odswiezStan() {
+    var st = stanWarsztatu();
+    document.documentElement.classList.toggle('zamkniete', !st.otwarte);
+    var pola = document.querySelectorAll('[data-status]');
+    for (var i = 0; i < pola.length; i++) pola[i].textContent = st.tekst;
+    return st;
+  }
+  var stan = odswiezStan();
+  setInterval(odswiezStan, 60000);
+  window.addEventListener('hashchange', odswiezStan);
+
   // Film z góry strony: odtwarza się raz, bez dźwięku. Tuż przed końcem jest chowany i zostaje
   // nieruchomy ostatni kadr; tak samo przy ograniczonym ruchu albo gdy telefon nie pozwoli na odtwarzanie.
   var film = document.getElementById('film');
   if (film) {
     var schowaj = function () { film.classList.add('koniec'); try { film.pause(); } catch (e) {} };
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) schowaj();
+    if (!stan.otwarte || window.matchMedia('(prefers-reduced-motion: reduce)').matches) schowaj();
     else {
       film.addEventListener('timeupdate', function () { if (film.duration && film.currentTime >= film.duration - 0.25) schowaj(); });
       film.addEventListener('ended', schowaj);
