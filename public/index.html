@@ -170,6 +170,9 @@ h1, h2, h3 { font-stretch: 125%; font-weight: 800; line-height: 1.05; letter-spa
 .grupa::before { content: ""; position: absolute; left: 0; top: -1px; width: min(9rem, 40%); height: 3px; background: var(--metal); }
 .grupa:last-of-type { border-bottom: 1px solid var(--zloto-ciemne); }
 .grupa h3 { font-size: clamp(1.5rem, 3.4vw, 2.1rem); }
+.grupa .opis-z-kaflem { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1.1rem; align-items: start; }
+.kafel { width: clamp(5.5rem, 22vw, 8.5rem); aspect-ratio: 1; padding: 4px; border: 1px solid var(--zloto); background: var(--czern); }
+.kafel img { width: 100%; height: 100%; object-fit: cover; }
 .grupa .opis { margin-top: .75rem; color: var(--szary); max-width: 26rem; }
 .cennik { list-style: none; margin: 0; padding: 0; }
 .cennik li { display: flex; align-items: baseline; gap: .75rem; padding-block: .7rem; border-bottom: 1px solid var(--linia); }
@@ -323,9 +326,12 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zl
       </div>
 
       <div class="grupa">
-        <div>
-          <h3>Mechanika</h3>
-          <p class="opis">Naprawa i serwis samochodów osobowych: diagnostyka komputerowa, wymiana oleju, hamulce, zawieszenie, rozrząd.</p>
+        <div class="opis-z-kaflem">
+          <div class="kafel"><img src="assets/kafel-mechanika.webp" alt="" width="400" height="400" loading="lazy"></div>
+          <div>
+            <h3>Mechanika</h3>
+            <p class="opis">Naprawa i serwis samochodów osobowych: diagnostyka komputerowa, wymiana oleju, hamulce, zawieszenie, rozrząd.</p>
+          </div>
         </div>
         <ul class="cennik">
           <li><span class="co">Diagnostyka komputerowa</span><span class="kropki"></span><span class="ile"><small>od</small>50 zł</span></li>
@@ -337,9 +343,12 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zl
       </div>
 
       <div class="grupa">
-        <div>
-          <h3>Wulkanizacja</h3>
-          <p class="opis">Wymiana i wyważanie kół, naprawa przebitych opon, sezonowa przekładka i przechowanie opon do następnego sezonu.</p>
+        <div class="opis-z-kaflem">
+          <div class="kafel"><img src="assets/kafel-opony.webp" alt="" width="400" height="400" loading="lazy"></div>
+          <div>
+            <h3>Wulkanizacja</h3>
+            <p class="opis">Wymiana i wyważanie kół, naprawa przebitych opon, sezonowa przekładka i przechowanie opon do następnego sezonu.</p>
+          </div>
         </div>
         <ul class="cennik">
           <li><span class="co">Wymiana opon, komplet 4 szt.</span><span class="kropki"></span><span class="ile"><small>od</small>80 zł</span></li>
@@ -351,9 +360,12 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zl
       </div>
 
       <div class="grupa">
-        <div>
-          <h3>Sprzedaż części</h3>
-          <p class="opis">Części, podzespoły i materiały eksploatacyjne. Podaj markę, model i rocznik auta, a sprawdzimy dostępność i cenę.</p>
+        <div class="opis-z-kaflem">
+          <div class="kafel"><img src="assets/kafel-czesci.webp" alt="" width="400" height="400" loading="lazy"></div>
+          <div>
+            <h3>Sprzedaż części</h3>
+            <p class="opis">Części, podzespoły i materiały eksploatacyjne. Podaj markę, model i rocznik auta, a sprawdzimy dostępność i cenę.</p>
+          </div>
         </div>
         <ul class="cennik bez-cen">
           <li><span class="co">Części samochodowe</span></li>
