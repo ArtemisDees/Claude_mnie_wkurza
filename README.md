@@ -2,7 +2,7 @@
 
 Statyczna strona serwowana z Cloudflare Workers (projekt `aged-sun-ecb2`).
 
-- `public/` – cała strona: `index.html` i folder `assets/` (czcionki, logo). Nic nie jest pobierane z zewnątrz.
+- `public/` – cała strona: `index.html` i folder `assets/` (czcionki, logo, film). Nic nie jest pobierane z zewnątrz.
 - `wrangler.jsonc` – konfiguracja wdrożenia. Pole `name` musi odpowiadać nazwie projektu w Cloudflare.
 
 Każdy commit na gałęzi `main` jest publikowany automatycznie po połączeniu repozytorium w Cloudflare

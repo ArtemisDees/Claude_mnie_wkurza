@@ -9,7 +9,7 @@
     godziny otwarcia .... Pn–Pt 8:00–17:00, Sob 8:00–13:00 (góra strony, sekcja Dojazd, blok ld+json)
     cennik .............. sekcja <section id="uslugi">
   Po podpięciu domeny: dopisz pełny adres strony w og:image i og:url (oznaczone niżej).
-  Strona nie korzysta z żadnych usług zewnętrznych: czcionki i grafiki są w folderze assets/.
+  Strona nie korzysta z żadnych usług zewnętrznych: czcionki, grafiki i film są w folderze assets/.
 -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -120,8 +120,8 @@ h1, h2, h3 { font-stretch: 125%; font-weight: 800; line-height: 1.05; letter-spa
 .menu .tel { color: var(--zloto-jasne); font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .menu .ukryj-m { display: none; }
 
-.hero { display: grid; gap: 1.5rem; padding-block: 1.5rem 3.5rem; position: relative; z-index: 1; }
-.hero-tekst { max-width: 40rem; }
+.hero { display: grid; gap: 1.25rem; padding-block: 0 3.5rem; }
+.hero-tekst { max-width: 40rem; position: relative; z-index: 1; }
 .hero h1 { font-size: clamp(2.2rem, 7.4vw, 4.4rem); font-weight: 900; }
 .hero h1 span { display: block; }
 .hero .lead { margin-top: 1.25rem; font-size: clamp(1.1rem, 2.2vw, 1.3rem); color: #C9C2B0; max-width: 34rem; }
@@ -132,19 +132,13 @@ h1, h2, h3 { font-stretch: 125%; font-weight: 800; line-height: 1.05; letter-spa
 
 .hero .godziny-krotko { margin-top: .7rem; color: #C9C2B0; font-variant-numeric: tabular-nums; }
 
-.tarcza { order: -1; justify-self: center; width: min(74vw, 21rem); position: relative; }
-.tarcza img { width: 100%; height: auto; }
-/* jedno przejście światła po logo przy wejściu na stronę */
-.tarcza::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(108deg, transparent 45%, rgba(255,246,210,.6) 50%, transparent 55%) no-repeat;
-  background-size: 260% 100%; background-position: 140% 0;
-  -webkit-mask: url("assets/logo.webp") center / 100% 100% no-repeat;
-          mask: url("assets/logo.webp") center / 100% 100% no-repeat;
-  mix-blend-mode: screen;
-  animation: polysk 1.5s .5s cubic-bezier(.4,0,.2,1) 1 both;
-}
-@keyframes polysk { from { background-position: 140% 0; } to { background-position: -40% 0; } }
+/* film z warsztatu na górze strony; pod nim leży nieruchomy ostatni kadr */
+.kino { position: relative; margin-inline: calc(var(--bok) * -1); aspect-ratio: 16 / 9; overflow: hidden; background: #000;
+  -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent 100%);
+          mask-image: linear-gradient(180deg, #000 72%, transparent 100%); }
+.kino img, .kino video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.kino video { transition: opacity .3s linear; }
+.kino video.koniec { opacity: 0; visibility: hidden; }
 
 /* informacja sezonowa (pokazuje się sama jesienią i wiosną) */
 .sezon { display: block; background: var(--zloto); color: var(--czern); text-align: center; text-decoration: none; font-weight: 700; padding: .6rem var(--bok); position: relative; z-index: 3; }
@@ -246,10 +240,15 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zl
   .dojazd { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 4rem; align-items: start; }
 }
 @media (min-width: 62rem) {
-  .hero { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: center; gap: 2rem; padding-block: 3rem 5.5rem; }
+  .hero { display: flex; align-items: center; min-height: clamp(31rem, 43vw, 41rem); padding-block: 3rem 6rem; }
+  .hero-tekst { max-width: 33rem; }
+  .kino { position: absolute; top: 0; right: 0; bottom: 0; width: 68%; margin: 0; aspect-ratio: auto;
+    -webkit-mask-image: linear-gradient(90deg, transparent 4%, #000 54%), linear-gradient(180deg, #000 76%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 4%, #000 54%), linear-gradient(180deg, #000 76%, transparent 100%);
+    -webkit-mask-composite: source-in; mask-composite: intersect; }
+  .kino::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(6,6,6,.72) 0%, rgba(6,6,6,0) 24%); }
   .hero h1 { font-size: min(3.4rem, 4.8vw); }
   .hero h1 span { white-space: nowrap; }
-  .tarcza { order: 0; width: 100%; max-width: 28rem; justify-self: end; }
   .hero-akcje .btn { flex: 0 1 auto; }
   .naglowek { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 3rem; align-items: end; }
   .kreator { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 4rem; }
@@ -258,7 +257,6 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zl
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .tarcza::after { display: none; }
   .dol { transition: none; }
   .btn, .wybor span { transition: none; }
 }
@@ -284,6 +282,12 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zl
     </nav>
 
     <div class="hero">
+      <div class="kino" aria-hidden="true">
+        <img src="assets/warsztat.webp" alt="" width="1280" height="720">
+        <video id="film" muted playsinline preload="auto" poster="assets/warsztat-start.webp" width="1280" height="720">
+          <source src="assets/warsztat.mp4" type="video/mp4">
+        </video>
+      </div>
       <div class="hero-tekst">
         <h1><span>Mechanika,</span> <span>wulkanizacja</span> <span>i części</span></h1>
         <p class="lead">Naprawiamy samochody osobowe, zajmujemy się oponami i sprzedajemy części, podzespoły oraz materiały eksploatacyjne.</p>
@@ -296,9 +300,6 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zl
             Zadzwoń: 732 931 287
           </a>
         </div>
-      </div>
-      <div class="tarcza">
-        <img src="assets/logo.webp" alt="Logo CHUD-POL Garage" width="720" height="662" fetchpriority="high">
       </div>
     </div>
   </div>
@@ -453,6 +454,21 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zl
 
 <script>
 (function () {
+  // Film z góry strony: odtwarza się raz, bez dźwięku. Tuż przed końcem jest chowany i zostaje
+  // nieruchomy ostatni kadr; tak samo przy ograniczonym ruchu albo gdy telefon nie pozwoli na odtwarzanie.
+  var film = document.getElementById('film');
+  if (film) {
+    var schowaj = function () { film.classList.add('koniec'); try { film.pause(); } catch (e) {} };
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) schowaj();
+    else {
+      film.addEventListener('timeupdate', function () { if (film.duration && film.currentTime >= film.duration - 0.25) schowaj(); });
+      film.addEventListener('ended', schowaj);
+      film.addEventListener('error', schowaj);
+      var p = film.play();
+      if (p && p.catch) p.catch(schowaj);
+    }
+  }
+
   // Pasek u dołu ekranu: pojawia się po przewinięciu poniżej przycisków z góry strony.
   var dol = document.getElementById('dol');
   var akcje = document.querySelector('.hero-akcje');
