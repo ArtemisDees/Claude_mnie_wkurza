@@ -6,6 +6,7 @@
     nazwa firmy ......... CHUD-POL Garage / CHUD-POL GARAGE
     adres ............... Legnicka 56 / 59-225 Chojnów
     telefon ............. 732 931 287  oraz  +48732931287  oraz  48732931287 (WhatsApp, SMS)
+    godziny otwarcia .... Pn–Pt 8:00–17:00, Sob 8:00–13:00 (góra strony, sekcja Dojazd, blok ld+json)
     cennik .............. sekcja <section id="uslugi">
   Po podpięciu domeny: dopisz pełny adres strony w og:image i og:url (oznaczone niżej).
   Strona nie korzysta z żadnych usług zewnętrznych: czcionki i grafiki są w folderze assets/.
@@ -40,6 +41,10 @@
     "addressRegion": "dolnośląskie",
     "addressCountry": "PL"
   },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "08:00", "closes": "17:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "13:00" }
+  ],
   "priceRange": "10–400 zł"
 }
 </script>
@@ -125,8 +130,34 @@ h1, h2, h3 { font-stretch: 125%; font-weight: 800; line-height: 1.05; letter-spa
 .hero-akcje { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: .8rem; }
 .hero-akcje .btn { flex: 1 1 14rem; }
 
-.tarcza { order: -1; justify-self: center; width: min(74vw, 21rem); }
+.hero .godziny-krotko { margin-top: .7rem; color: #C9C2B0; font-variant-numeric: tabular-nums; }
+
+.tarcza { order: -1; justify-self: center; width: min(74vw, 21rem); position: relative; }
 .tarcza img { width: 100%; height: auto; }
+/* jedno przejście światła po logo przy wejściu na stronę */
+.tarcza::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(108deg, transparent 45%, rgba(255,246,210,.6) 50%, transparent 55%) no-repeat;
+  background-size: 260% 100%; background-position: 140% 0;
+  -webkit-mask: url("assets/logo.webp") center / 100% 100% no-repeat;
+          mask: url("assets/logo.webp") center / 100% 100% no-repeat;
+  mix-blend-mode: screen;
+  animation: polysk 1.5s .5s cubic-bezier(.4,0,.2,1) 1 both;
+}
+@keyframes polysk { from { background-position: 140% 0; } to { background-position: -40% 0; } }
+
+/* informacja sezonowa (pokazuje się sama jesienią i wiosną) */
+.sezon { display: block; background: var(--zloto); color: var(--czern); text-align: center; text-decoration: none; font-weight: 700; padding: .6rem var(--bok); position: relative; z-index: 3; }
+.sezon:hover { background: var(--zloto-jasne); }
+.sezon[hidden] { display: none; }
+.sezon u { text-underline-offset: .2em; }
+
+/* pasek z telefonem u dołu ekranu na telefonach */
+.dol { position: fixed; left: 0; right: 0; bottom: 0; z-index: 15; display: grid; grid-template-columns: 1fr 1fr; gap: .6rem;
+  padding: .6rem var(--bok) calc(.6rem + env(safe-area-inset-bottom)); background: rgba(6,6,6,.94); border-top: 1px solid var(--zloto-ciemne);
+  transform: translateY(110%); transition: transform .25s ease; }
+.dol.widac { transform: none; }
+.dol .btn { min-height: 3rem; padding: .6rem .8rem; }
 
 /* ───── usługi i ceny ───── */
 .sekcja { padding-block: clamp(3.5rem, 8vw, 6.5rem); }
@@ -184,6 +215,13 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zl
 .dojazd address { font-style: normal; font-size: clamp(1.5rem, 4vw, 2.4rem); font-weight: 800; font-stretch: 125%; line-height: 1.15; color: var(--zloto); }
 .dojazd address span { display: block; font-size: max(1rem, .55em); font-weight: 500; font-stretch: 100%; color: var(--szary); margin-top: .5rem; }
 .dojazd .btn { margin-top: 1.75rem; }
+.godziny { margin-top: 2.25rem; }
+.godziny h3 { font-size: 1.05rem; font-stretch: 112%; font-weight: 600; letter-spacing: 0; color: var(--szary); margin-bottom: .5rem; }
+.godziny dl { margin: 0; }
+.godziny div { display: flex; justify-content: space-between; gap: 1rem; padding-block: .7rem; border-bottom: 1px solid var(--linia); }
+.godziny dt { font-weight: 500; }
+.godziny dd { margin: 0; font-weight: 800; font-stretch: 112%; font-variant-numeric: tabular-nums; color: var(--zloto-jasne); }
+.godziny .zamkniete dd { color: var(--szary); font-weight: 500; font-stretch: 100%; }
 .telefony { list-style: none; margin: 0; padding: 0; display: grid; gap: .25rem; align-content: start; }
 .telefony li { border-top: 1px solid var(--linia); }
 .telefony li:last-child { border-bottom: 1px solid var(--linia); }
@@ -196,7 +234,11 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zl
 .stopka strong { color: #fff; }
 
 /* ───── szerzej ───── */
+@media (max-width: 45.99rem) {
+  body { padding-bottom: 4.6rem; }
+}
 @media (min-width: 46rem) {
+  .dol { display: none; }
   .menu .ukryj-m { display: block; }
   .dwa { grid-template-columns: 1fr 1fr; }
   .grupa { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 3rem; padding-block: 2.75rem; }
@@ -216,6 +258,8 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zl
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .tarcza::after { display: none; }
+  .dol { transition: none; }
   .btn, .wybor span { transition: none; }
 }
 </style>
@@ -224,6 +268,7 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zl
 <a class="skip" href="#uslugi">Przejdź do treści</a>
 
 <header class="gora">
+  <a class="sezon" id="sezon" href="#wizyta" hidden></a>
   <div class="wrap">
     <nav class="pasek" aria-label="Główna nawigacja">
       <a class="marka" href="#" aria-label="CHUD-POL Garage, początek strony">
@@ -243,6 +288,7 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zl
         <h1><span>Mechanika,</span> <span>wulkanizacja</span> <span>i części</span></h1>
         <p class="lead">Naprawiamy samochody osobowe, zajmujemy się oponami i sprzedajemy części, podzespoły oraz materiały eksploatacyjne.</p>
         <a class="adres" href="#dojazd">Legnicka 56, 59-225 Chojnów</a>
+        <p class="godziny-krotko">Pn–Pt 8:00–17:00, Sob 8:00–13:00</p>
         <div class="hero-akcje">
           <a class="btn btn-glowny" href="#wizyta">Umów wizytę</a>
           <a class="btn btn-obrys" href="tel:+48732931287">
@@ -376,12 +422,27 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zl
           Wyznacz trasę w Mapach Google
         </a>
       </div>
-      <ul class="telefony" aria-label="Telefony">
-        <li><a href="tel:+48732931287">732 931 287 <small>telefon, WhatsApp, SMS</small></a></li>
-      </ul>
+      <div>
+        <ul class="telefony" aria-label="Telefony">
+          <li><a href="tel:+48732931287">732 931 287 <small>telefon, WhatsApp, SMS</small></a></li>
+        </ul>
+        <div class="godziny">
+          <h3>Godziny otwarcia</h3>
+          <dl>
+            <div><dt>Poniedziałek–piątek</dt><dd>8:00–17:00</dd></div>
+            <div><dt>Sobota</dt><dd>8:00–13:00</dd></div>
+            <div class="zamkniete"><dt>Niedziela</dt><dd>nieczynne</dd></div>
+          </dl>
+        </div>
+      </div>
     </div>
   </section>
 </main>
+
+<div class="dol" id="dol">
+  <a class="btn btn-glowny" href="tel:+48732931287">Zadzwoń</a>
+  <a class="btn btn-obrys" href="#wizyta">Umów wizytę</a>
+</div>
 
 <footer class="stopka">
   <div class="wrap">
@@ -392,6 +453,29 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zl
 
 <script>
 (function () {
+  // Pasek u dołu ekranu: pojawia się po przewinięciu poniżej przycisków z góry strony.
+  var dol = document.getElementById('dol');
+  var akcje = document.querySelector('.hero-akcje');
+  if (dol && akcje && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (e) { dol.classList.toggle('widac', !e[0].isIntersecting && e[0].boundingClientRect.top < 0); }).observe(akcje);
+  } else if (dol) { dol.classList.add('widac'); }
+
+  // Informacja sezonowa: jesienią opony zimowe, wiosną letnie; poza sezonem nic się nie pokazuje.
+  var sezon = document.getElementById('sezon');
+  if (sezon) {
+    var d = new Date(), md = (d.getMonth() + 1) * 100 + d.getDate(), jakie = '';
+    if (md >= 1001 && md <= 1215) jakie = 'zimowe';
+    else if (md >= 315 && md <= 515) jakie = 'letnie';
+    if (jakie) {
+      sezon.innerHTML = 'Trwa sezon wymiany opon na ' + jakie + '. <u>Umów termin</u>';
+      sezon.hidden = false;
+      sezon.addEventListener('click', function () {
+        var r = document.querySelector('input[name="usluga"][value="Wulkanizacja"]');
+        if (r) { r.checked = true; r.dispatchEvent(new Event('change', { bubbles: true })); }
+      });
+    }
+  }
+
   // Kreator wiadomości: nic nie jest wysyłane przez stronę, tekst trafia do aplikacji w telefonie.
   var NUMER = '48732931287';
   var f = document.getElementById('kreator');
