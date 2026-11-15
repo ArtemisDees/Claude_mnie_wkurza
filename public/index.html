@@ -12,14 +12,14 @@
 -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CHUD-POL Garage – mechanika i wulkanizacja | Chojnów</title>
-<meta name="description" content="Warsztat samochodowy w Chojnowie, ul. Legnicka 56: mechanika i wulkanizacja. Cennik usług i szybkie umówienie wizyty przez telefon, WhatsApp lub SMS.">
+<title>CHUD-POL Garage – mechanika, wulkanizacja, części | Chojnów</title>
+<meta name="description" content="Warsztat samochodowy w Chojnowie, ul. Legnicka 56: mechanika, wulkanizacja oraz sprzedaż części, podzespołów i materiałów eksploatacyjnych. Cennik usług i szybkie umówienie wizyty przez telefon, WhatsApp lub SMS.">
 <meta name="theme-color" content="#050B1A">
 <link rel="icon" href="assets/icon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="assets/icon-180.png">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pl_PL">
-<meta property="og:title" content="CHUD-POL Garage – mechanika i wulkanizacja">
+<meta property="og:title" content="CHUD-POL Garage – mechanika, wulkanizacja, części">
 <meta property="og:description" content="Warsztat w Chojnowie, ul. Legnicka 56. Cennik usług i umówienie wizyty w minutę.">
 <meta property="og:image" content="assets/og.jpg"><!-- po podpięciu domeny: pełny adres, np. https://twojadomena.pl/assets/og.jpg -->
 <link rel="preload" href="assets/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -29,7 +29,7 @@
   "@context": "https://schema.org",
   "@type": "AutoRepair",
   "name": "CHUD-POL Garage",
-  "description": "Mechanika samochodowa i wulkanizacja.",
+  "description": "Mechanika samochodowa, wulkanizacja oraz sprzedaż części, podzespołów i materiałów eksploatacyjnych.",
   "image": "assets/og.jpg",
   "telephone": "+48732931287",
   "address": {
@@ -248,8 +248,8 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zo
 
     <div class="hero">
       <div class="hero-tekst">
-        <h1><span>Mechanika</span> <span>i wulkanizacja</span></h1>
-        <p class="lead">Naprawiamy samochody osobowe i zajmujemy się oponami: od diagnostyki komputerowej po sezonową wymianę kół.</p>
+        <h1><span>Mechanika,</span> <span>wulkanizacja</span> <span>i części</span></h1>
+        <p class="lead">Naprawiamy samochody osobowe, zajmujemy się oponami i sprzedajemy części, podzespoły oraz materiały eksploatacyjne.</p>
         <a class="adres" href="#dojazd">Legnicka 56, 59-225 Chojnów</a>
         <div class="hero-akcje">
           <a class="btn btn-glowny" href="#wizyta">Umów wizytę</a>
@@ -305,6 +305,18 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zo
         </ul>
       </div>
 
+      <div class="grupa">
+        <div>
+          <h3>Sprzedaż części</h3>
+          <p class="opis">Części, podzespoły i materiały eksploatacyjne. Podaj markę, model i rocznik auta, a sprawdzimy dostępność i cenę.</p>
+        </div>
+        <ul class="cennik bez-cen">
+          <li><span class="co">Części samochodowe</span></li>
+          <li><span class="co">Podzespoły</span></li>
+          <li><span class="co">Materiały eksploatacyjne</span></li>
+        </ul>
+      </div>
+
     </div>
   </section>
 
@@ -322,6 +334,7 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zo
             <div class="wybor">
               <label><input type="radio" name="usluga" value="Mechanika" checked><span>Mechanika</span></label>
               <label><input type="radio" name="usluga" value="Wulkanizacja"><span>Wulkanizacja</span></label>
+              <label><input type="radio" name="usluga" value="Części"><span>Części</span></label>
               <label><input type="radio" name="usluga" value="Inna sprawa"><span>Inna sprawa</span></label>
             </div>
           </fieldset>
@@ -338,7 +351,7 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zo
           </div>
 
           <div>
-            <label class="etykieta" for="opis">Co się dzieje z autem?</label>
+            <label class="etykieta" for="opis">Co się dzieje z autem albo czego szukasz?</label>
             <textarea id="opis" name="opis" placeholder="np. stuka z przodu po lewej przy skręcaniu"></textarea>
           </div>
 
@@ -420,9 +433,9 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zo
   function zloz() {
     var usluga = wartosc('usluga');
     var linie = [];
-    linie.push(usluga === 'Inna sprawa'
-      ? 'Dzień dobry, mam pytanie.'
-      : 'Dzień dobry, chcę umówić wizytę: ' + usluga.toLowerCase() + '.');
+    if (usluga === 'Inna sprawa') linie.push('Dzień dobry, mam pytanie.');
+    else if (usluga === 'Części') linie.push('Dzień dobry, pytam o części.');
+    else linie.push('Dzień dobry, chcę umówić wizytę: ' + usluga.toLowerCase() + '.');
     if (wartosc('auto'))   linie.push('Auto: ' + wartosc('auto'));
     if (wartosc('opis'))   linie.push(wartosc('opis'));
     if (wartosc('termin')) linie.push('Termin: ' + wartosc('termin'));
