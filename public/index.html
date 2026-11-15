@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<!--
+  DANE DO PODMIANY (szukaj i zamień w tym pliku):
+    nazwa firmy ......... CHUD-POL Garage / CHUD-POL GARAGE
+    adres ............... Jerzmanowice 42 / woj. dolnośląskie
+    telefon 1 ........... 732 931 287  oraz  +48732931287  oraz  48732931287 (WhatsApp, SMS)
+    telefon 2 ........... 607 628 124  oraz  +48607628124
+    cennik .............. sekcja <section id="uslugi">
+  Po podpięciu domeny: dopisz pełny adres strony w og:image i og:url (oznaczone niżej).
+  Strona nie korzysta z żadnych usług zewnętrznych: czcionki, grafiki i wideo są w folderze assets/.
+-->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CHUD-POL Garage – mechanika, wulkanizacja, myjnia | Jerzmanowice</title>
+<meta name="description" content="Warsztat samochodowy w Jerzmanowicach (woj. dolnośląskie): mechanika, wulkanizacja i myjnia ręczna. Cennik usług i szybkie umówienie wizyty przez telefon, WhatsApp lub SMS.">
+<meta name="theme-color" content="#050B1A">
+<link rel="icon" href="assets/icon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:title" content="CHUD-POL Garage – mechanika, wulkanizacja, myjnia">
+<meta property="og:description" content="Warsztat w Jerzmanowicach 42. Cennik usług i umówienie wizyty w minutę.">
+<meta property="og:image" content="assets/og.jpg"><!-- po podpięciu domeny: pełny adres, np. https://twojadomena.pl/assets/og.jpg -->
+<link rel="preload" href="assets/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/archivo-latin-ext-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AutoRepair",
+  "name": "CHUD-POL Garage",
+  "description": "Mechanika samochodowa, wulkanizacja i myjnia ręczna.",
+  "image": "assets/og.jpg",
+  "telephone": ["+48732931287", "+48607628124"],
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Jerzmanowice 42",
+    "addressLocality": "Jerzmanowice",
+    "addressRegion": "dolnośląskie",
+    "addressCountry": "PL"
+  },
+  "priceRange": "10–400 zł"
+}
+</script>
+<style>
+@font-face {
+  font-family: "Archivo";
+  src: url("assets/archivo-latin-ext-wdth-normal.woff2") format("woff2");
+  font-weight: 100 900; font-stretch: 62% 125%; font-style: normal; font-display: swap;
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: "Archivo";
+  src: url("assets/archivo-latin-wdth-normal.woff2") format("woff2");
+  font-weight: 100 900; font-stretch: 62% 125%; font-style: normal; font-display: swap;
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+:root {
+  --noc: #050B1A;        /* tło logo: nocny granat */
+  --granat: #0E2A5C;     /* granat tarczy */
+  --blekit: #2F6BFF;     /* światło reflektorów z logo */
+  --blekit-jasny: #9DBBFF;
+  --beton: #ECEEF1;      /* posadzka warsztatu */
+  --papier: #FFFFFF;
+  --asfalt: #161B26;
+  --szary: #5A6475;
+  --linia: #C9CED8;
+  --zolty: #FFC61A;      /* farba ostrzegawcza: tylko główne działanie */
+  --szer: 72rem;
+  --bok: clamp(1.25rem, 5vw, 3rem);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 1.0625rem; line-height: 1.55; font-stretch: 100%;
+  color: var(--asfalt); background: var(--beton);
+  -webkit-font-smoothing: antialiased;
+}
+img, video { max-width: 100%; display: block; }
+a { color: inherit; }
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { font-stretch: 125%; font-weight: 800; line-height: 1.05; letter-spacing: -0.01em; text-wrap: balance; }
+:focus-visible { outline: 3px solid var(--zolty); outline-offset: 3px; border-radius: 4px; }
+.skip { position: absolute; left: -999px; top: 0; background: var(--zolty); color: var(--noc); padding: .75rem 1rem; font-weight: 700; z-index: 20; }
+.skip:focus { left: 0; }
+.wrap { max-width: var(--szer); margin-inline: auto; padding-inline: var(--bok); }
+
+/* przyciski */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
+  min-height: 3.25rem; padding: .8rem 1.5rem;
+  font: inherit; font-weight: 700; font-stretch: 112%; line-height: 1.2; text-decoration: none; text-align: center;
+  border: 2px solid transparent; border-radius: 6px; cursor: pointer;
+  transition: transform .15s ease, background-color .15s ease, border-color .15s ease;
+}
+.btn:active { transform: translateY(1px); }
+.btn-glowny { background: var(--zolty); color: var(--noc); }
+.btn-glowny:hover { background: #FFD44F; }
+.btn-obrys { border-color: currentColor; background: transparent; color: inherit; }
+.btn-obrys:hover { background: rgba(127,150,200,.14); }
+.btn svg { width: 1.25rem; height: 1.25rem; flex: none; }
+
+/* ───── góra strony ───── */
+.gora { background: var(--noc); color: #fff; position: relative; overflow: hidden; }
+.pasek { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 1rem; position: relative; z-index: 2; }
+.marka { display: inline-flex; align-items: center; gap: .7rem; text-decoration: none; font-weight: 800; font-stretch: 125%; font-size: clamp(.9rem, 3.6vw, 1.05rem); letter-spacing: .01em; white-space: nowrap; }
+.marka img { width: 2.75rem; height: 2.75rem; }
+.menu { display: flex; align-items: center; gap: clamp(1rem, 2.5vw, 2rem); list-style: none; margin: 0; padding: 0; }
+.menu a { text-decoration: none; font-weight: 500; color: #D6DEF0; padding-block: .5rem; border-bottom: 2px solid transparent; }
+.menu a:hover { color: #fff; border-bottom-color: var(--blekit); }
+.menu .tel { color: #fff; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.menu .ukryj-m { display: none; }
+
+.hero { display: grid; gap: 1.5rem; padding-block: 1.5rem 3.5rem; position: relative; z-index: 1; }
+.hero-tekst { max-width: 40rem; }
+.hero h1 { font-size: clamp(2.2rem, 7.4vw, 4.4rem); font-weight: 900; }
+.hero h1 span { display: block; }
+.hero .lead { margin-top: 1.25rem; font-size: clamp(1.1rem, 2.2vw, 1.3rem); color: #C5CFE6; max-width: 34rem; }
+.hero .adres { margin-top: 1.25rem; display: inline-flex; align-items: baseline; gap: .6rem; font-weight: 600; color: #fff; text-decoration: none; border-bottom: 2px solid var(--blekit); padding-bottom: .15rem; }
+.hero .adres:hover { border-bottom-color: var(--zolty); }
+.hero-akcje { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: .8rem; }
+.hero-akcje .btn { flex: 1 1 14rem; }
+
+.tarcza { order: -1; justify-self: center; width: min(78vw, 22rem); aspect-ratio: 720 / 694; position: relative; }
+.tarcza video { position: absolute; inset: 0; transition: opacity .25s linear; }
+.tarcza video.koniec { opacity: 0; visibility: hidden; }
+.tarcza video, .tarcza img { width: 100%; height: 100%; object-fit: cover;
+  -webkit-mask-image: radial-gradient(closest-side, #000 50%, rgba(0,0,0,.55) 78%, transparent 100%);
+          mask-image: radial-gradient(closest-side, #000 50%, rgba(0,0,0,.55) 78%, transparent 100%); }
+
+/* ───── usługi i ceny ───── */
+.sekcja { padding-block: clamp(3.5rem, 8vw, 6.5rem); }
+.naglowek { display: grid; gap: 1rem; margin-bottom: clamp(2rem, 5vw, 3.5rem); }
+.naglowek h2 { font-size: clamp(1.9rem, 5vw, 3.1rem); }
+.naglowek p { color: var(--szary); max-width: 38rem; }
+
+.grupa { display: grid; gap: 1.25rem; padding-block: 2rem; border-top: 4px solid var(--granat); }
+.grupa:last-of-type { border-bottom: 4px solid var(--granat); }
+.grupa h3 { font-size: clamp(1.5rem, 3.4vw, 2.1rem); color: var(--granat); }
+.grupa .opis { margin-top: .75rem; color: var(--szary); max-width: 26rem; }
+.cennik { list-style: none; margin: 0; padding: 0; }
+.cennik li { display: flex; align-items: baseline; gap: .75rem; padding-block: .7rem; border-bottom: 1px solid var(--linia); }
+.cennik li:last-child { border-bottom: 0; }
+.cennik .co { font-weight: 500; }
+.cennik .kropki { flex: 1; min-width: 1.5rem; border-bottom: 2px dotted #A9B1BF; transform: translateY(-.28em); }
+.cennik .ile { font-weight: 800; font-stretch: 112%; font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--granat); }
+.cennik .ile small { font-weight: 500; font-stretch: 100%; font-size: .82em; color: var(--szary); margin-right: .3em; }
+
+/* ───── umów wizytę ───── */
+.wizyta { background: var(--granat); color: #fff; }
+.wizyta .naglowek p { color: #C5CFE6; }
+.kreator { display: grid; gap: 2rem; }
+.pola { display: grid; gap: 1.4rem; }
+fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+legend, .etykieta { display: block; padding: 0; margin-bottom: .55rem; font-weight: 700; font-stretch: 112%; }
+.etykieta small, legend small { font-weight: 400; font-stretch: 100%; color: var(--blekit-jasny); margin-left: .35rem; }
+.wybor { display: flex; flex-wrap: wrap; gap: .5rem; }
+.wybor label { position: relative; cursor: pointer; }
+.wybor input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.wybor span { display: block; padding: .65rem 1.05rem; border: 2px solid #4666A8; border-radius: 6px; font-weight: 600; transition: background-color .15s, border-color .15s, color .15s; }
+.wybor input:hover + span { border-color: #fff; }
+.wybor input:checked + span { background: #fff; border-color: #fff; color: var(--granat); }
+.wybor input:focus-visible + span { outline: 3px solid var(--zolty); outline-offset: 3px; }
+.dwa { display: grid; gap: 1.4rem; }
+input[type="text"], textarea {
+  width: 100%; font: inherit; color: #fff; background: rgba(5,11,26,.45);
+  border: 2px solid #4666A8; border-radius: 6px; padding: .8rem .95rem;
+}
+textarea { min-height: 7.5rem; resize: vertical; }
+input[type="text"]::placeholder, textarea::placeholder { color: #8FA3CF; }
+input[type="text"]:hover, textarea:hover { border-color: #7F9BDA; }
+input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zolty); }
+
+.podglad { align-self: start; background: var(--papier); color: var(--asfalt); border-radius: 14px; padding: 1.5rem; box-shadow: 0 1.5rem 3rem -1rem rgba(2,6,16,.6); }
+.podglad h3 { font-size: 1.05rem; font-stretch: 112%; color: var(--szary); font-weight: 600; letter-spacing: 0; }
+.dymek { margin-top: 1rem; padding: 1rem 1.1rem; background: #E7EEFF; border-radius: 12px 12px 12px 2px; white-space: pre-wrap; overflow-wrap: anywhere; min-height: 7rem; font-size: 1rem; }
+.podglad .akcje { margin-top: 1.25rem; display: grid; gap: .7rem; }
+.podglad .btn-obrys { color: var(--granat); }
+.podglad .btn-obrys:hover { background: #EEF2FA; }
+.podglad .dopisek { margin-top: 1rem; font-size: .9rem; color: var(--szary); }
+.podglad .dopisek a { color: var(--granat); font-weight: 700; white-space: nowrap; }
+
+/* ───── dojazd ───── */
+.dojazd { display: grid; gap: 2.5rem; }
+.dojazd h2 { font-size: clamp(1.9rem, 5vw, 3.1rem); margin-bottom: 1.5rem; }
+.dojazd address { font-style: normal; font-size: clamp(1.5rem, 4vw, 2.4rem); font-weight: 800; font-stretch: 125%; line-height: 1.15; color: var(--granat); }
+.dojazd address span { display: block; font-size: max(1rem, .55em); font-weight: 500; font-stretch: 100%; color: var(--szary); margin-top: .5rem; }
+.dojazd .btn { margin-top: 1.75rem; background: var(--granat); color: #fff; }
+.dojazd .btn:hover { background: #163A7A; }
+.telefony { list-style: none; margin: 0; padding: 0; display: grid; gap: .25rem; align-content: start; }
+.telefony li { border-top: 1px solid var(--linia); }
+.telefony li:last-child { border-bottom: 1px solid var(--linia); }
+.telefony a { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 1.1rem; text-decoration: none; font-size: clamp(1.35rem, 3.4vw, 1.9rem); font-weight: 800; font-stretch: 112%; font-variant-numeric: tabular-nums; color: var(--asfalt); }
+.telefony a:hover { color: var(--blekit); }
+.telefony small { font-size: .95rem; font-weight: 500; font-stretch: 100%; color: var(--szary); }
+
+.stopka { background: var(--noc); color: #AEB9D3; padding-block: 2rem; font-size: .95rem; }
+.stopka .wrap { display: flex; flex-wrap: wrap; gap: .5rem 2rem; justify-content: space-between; }
+.stopka strong { color: #fff; }
+
+/* ───── szerzej ───── */
+@media (min-width: 46rem) {
+  .menu .ukryj-m { display: block; }
+  .dwa { grid-template-columns: 1fr 1fr; }
+  .grupa { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 3rem; padding-block: 2.75rem; }
+  .podglad .akcje { grid-template-columns: 1fr 1fr; }
+  .dojazd { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 4rem; align-items: start; }
+}
+@media (min-width: 62rem) {
+  .hero { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: center; gap: 2rem; padding-block: 3rem 5.5rem; }
+  .hero h1 { font-size: min(3.4rem, 4.8vw); }
+  .hero h1 span { white-space: nowrap; }
+  .tarcza { order: 0; width: 100%; max-width: 30rem; justify-self: end; }
+  .hero-akcje .btn { flex: 0 1 auto; }
+  .naglowek { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 3rem; align-items: end; }
+  .kreator { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 4rem; }
+  .podglad { position: sticky; top: 1.5rem; }
+  .podglad .akcje { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn, .wybor span { transition: none; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#uslugi">Przejdź do treści</a>
+
+<header class="gora">
+  <div class="wrap">
+    <nav class="pasek" aria-label="Główna nawigacja">
+      <a class="marka" href="#" aria-label="CHUD-POL Garage, początek strony">
+        <img src="assets/logo-112.webp" alt="" width="56" height="56">
+        <span>CHUD-POL Garage</span>
+      </a>
+      <ul class="menu">
+        <li class="ukryj-m"><a href="#uslugi">Usługi i ceny</a></li>
+        <li class="ukryj-m"><a href="#wizyta">Umów wizytę</a></li>
+        <li class="ukryj-m"><a href="#dojazd">Dojazd</a></li>
+        <li><a class="tel" href="tel:+48732931287">732 931 287</a></li>
+      </ul>
+    </nav>
+
+    <div class="hero">
+      <div class="hero-tekst">
+        <h1><span>Mechanika,</span> <span>wulkanizacja</span> <span>i myjnia ręczna</span></h1>
+        <p class="lead">Jeden warsztat od diagnostyki po czyste auto. Naprawiamy, zmieniamy opony i myjemy samochody osobowe.</p>
+        <a class="adres" href="#dojazd">Jerzmanowice 42, woj. dolnośląskie</a>
+        <div class="hero-akcje">
+          <a class="btn btn-glowny" href="#wizyta">Umów wizytę</a>
+          <a class="btn btn-obrys" href="tel:+48732931287">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+            Zadzwoń: 732 931 287
+          </a>
+        </div>
+      </div>
+      <div class="tarcza">
+        <img src="assets/logo-intro.webp" alt="Logo CHUD-POL Garage" width="720" height="694">
+        <video id="intro" muted playsinline preload="auto" poster="assets/logo-intro.webp" width="720" height="694" aria-hidden="true">
+          <source src="assets/logo-intro.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="sekcja" id="uslugi">
+    <div class="wrap">
+      <div class="naglowek">
+        <h2>Usługi i ceny</h2>
+        <p>Ceny są orientacyjne i zaczynają się od podanych kwot. Dokładną wycenę podamy po obejrzeniu auta, przed rozpoczęciem pracy.</p>
+      </div>
+
+      <div class="grupa">
+        <div>
+          <h3>Mechanika</h3>
+          <p class="opis">Naprawa i serwis samochodów osobowych: diagnostyka komputerowa, wymiana oleju, hamulce, zawieszenie, rozrząd.</p>
+        </div>
+        <ul class="cennik">
+          <li><span class="co">Diagnostyka komputerowa</span><span class="kropki"></span><span class="ile"><small>od</small>50 zł</span></li>
+          <li><span class="co">Wymiana oleju z filtrem</span><span class="kropki"></span><span class="ile"><small>od</small>80 zł</span></li>
+          <li><span class="co">Wymiana klocków hamulcowych</span><span class="kropki"></span><span class="ile"><small>od</small>100 zł</span></li>
+          <li><span class="co">Wymiana rozrządu</span><span class="kropki"></span><span class="ile"><small>od</small>400 zł</span></li>
+          <li><span class="co">Przegląd okresowy</span><span class="kropki"></span><span class="ile"><small>od</small>50 zł</span></li>
+        </ul>
+      </div>
+
+      <div class="grupa">
+        <div>
+          <h3>Wulkanizacja</h3>
+          <p class="opis">Wymiana i wyważanie kół, naprawa przebitych opon, sezonowa przekładka i przechowanie opon do następnego sezonu.</p>
+        </div>
+        <ul class="cennik">
+          <li><span class="co">Wymiana opon, komplet 4 szt.</span><span class="kropki"></span><span class="ile"><small>od</small>80 zł</span></li>
+          <li><span class="co">Wyważanie koła</span><span class="kropki"></span><span class="ile"><small>od</small>15 zł</span></li>
+          <li><span class="co">Naprawa opony</span><span class="kropki"></span><span class="ile"><small>od</small>25 zł</span></li>
+          <li><span class="co">Przechowanie opon, sezon</span><span class="kropki"></span><span class="ile"><small>od</small>100 zł</span></li>
+          <li><span class="co">Wymiana zaworu</span><span class="kropki"></span><span class="ile"><small>od</small>10 zł</span></li>
+        </ul>
+      </div>
+
+      <div class="grupa">
+        <div>
+          <h3>Myjnia ręczna</h3>
+          <p class="opis">Mycie z zewnątrz i w środku, woskowanie oraz pranie tapicerki. Ręcznie, z dbałością o detale.</p>
+        </div>
+        <ul class="cennik">
+          <li><span class="co">Mycie podstawowe</span><span class="kropki"></span><span class="ile"><small>od</small>30 zł</span></li>
+          <li><span class="co">Mycie z woskowaniem</span><span class="kropki"></span><span class="ile"><small>od</small>50 zł</span></li>
+          <li><span class="co">Mycie wnętrza</span><span class="kropki"></span><span class="ile"><small>od</small>40 zł</span></li>
+          <li><span class="co">Pranie tapicerki</span><span class="kropki"></span><span class="ile"><small>od</small>150 zł</span></li>
+          <li><span class="co">Pakiet komplet</span><span class="kropki"></span><span class="ile"><small>od</small>200 zł</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekcja wizyta" id="wizyta">
+    <div class="wrap">
+      <div class="naglowek">
+        <h2>Umów wizytę</h2>
+        <p>Zaznacz, czego potrzebujesz, i dopisz kilka słów. Gotowa wiadomość otworzy się w WhatsAppie albo w SMS-ach w Twoim telefonie. Wysyłasz ją sam, jednym dotknięciem.</p>
+      </div>
+
+      <form class="kreator" id="kreator" novalidate>
+        <div class="pola">
+          <fieldset>
+            <legend>Czego potrzebujesz?</legend>
+            <div class="wybor">
+              <label><input type="radio" name="usluga" value="Mechanika" checked><span>Mechanika</span></label>
+              <label><input type="radio" name="usluga" value="Wulkanizacja"><span>Wulkanizacja</span></label>
+              <label><input type="radio" name="usluga" value="Myjnia"><span>Myjnia</span></label>
+              <label><input type="radio" name="usluga" value="Inna sprawa"><span>Inna sprawa</span></label>
+            </div>
+          </fieldset>
+
+          <div class="dwa">
+            <div>
+              <label class="etykieta" for="auto">Auto <small>marka, model, rocznik</small></label>
+              <input type="text" id="auto" name="auto" placeholder="np. Audi A4 2012" autocomplete="off">
+            </div>
+            <div>
+              <label class="etykieta" for="termin">Kiedy Ci pasuje? <small>nieobowiązkowo</small></label>
+              <input type="text" id="termin" name="termin" placeholder="np. czwartek po 15:00" autocomplete="off">
+            </div>
+          </div>
+
+          <div>
+            <label class="etykieta" for="opis">Co się dzieje z autem?</label>
+            <textarea id="opis" name="opis" placeholder="np. stuka z przodu po lewej przy skręcaniu"></textarea>
+          </div>
+
+          <div>
+            <label class="etykieta" for="imie">Imię <small>nieobowiązkowo</small></label>
+            <input type="text" id="imie" name="imie" autocomplete="given-name">
+          </div>
+        </div>
+
+        <aside class="podglad" aria-live="polite">
+          <h3>Twoja wiadomość</h3>
+          <p class="dymek" id="dymek">Dzień dobry, chcę umówić wizytę: mechanika.</p>
+          <div class="akcje">
+            <a class="btn btn-glowny" id="wa" href="https://wa.me/48732931287?text=Dzie%C5%84%20dobry%2C%20chc%C4%99%20um%C3%B3wi%C4%87%20wizyt%C4%99." target="_blank" rel="noopener">Otwórz w WhatsAppie</a>
+            <a class="btn btn-obrys" id="sms" href="sms:+48732931287?&amp;body=Dzie%C5%84%20dobry%2C%20chc%C4%99%20um%C3%B3wi%C4%87%20wizyt%C4%99.">Otwórz jako SMS</a>
+          </div>
+          <p class="dopisek">Wolisz porozmawiać? Zadzwoń: <a href="tel:+48732931287">732 931 287</a> lub <a href="tel:+48607628124">607 628 124</a>.</p>
+        </aside>
+      </form>
+    </div>
+  </section>
+
+  <section class="sekcja" id="dojazd">
+    <div class="wrap dojazd">
+      <div>
+        <h2>Dojazd</h2>
+        <address>
+          Jerzmanowice 42
+          <span>woj. dolnośląskie</span>
+        </address>
+        <a class="btn" href="https://www.google.com/maps/dir/?api=1&amp;destination=Jerzmanowice%2042%2C%20dolno%C5%9Bl%C4%85skie" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          Wyznacz trasę w Mapach Google
+        </a>
+      </div>
+      <ul class="telefony" aria-label="Telefony">
+        <li><a href="tel:+48732931287">732 931 287 <small>telefon, WhatsApp, SMS</small></a></li>
+        <li><a href="tel:+48607628124">607 628 124 <small>telefon</small></a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="stopka">
+  <div class="wrap">
+    <span><strong>CHUD-POL Garage</strong>, Jerzmanowice 42, woj. dolnośląskie</span>
+    <span>Ta strona nie używa plików cookie i nie zbiera żadnych danych.</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Jednorazowe wejście logo; przy ograniczonym ruchu zostaje sam obraz.
+  var v = document.getElementById('intro');
+  var spokojnie = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (v) {
+    // Pod wideo leży nieruchomy obraz logo. Tuż przed końcem animacji wideo jest chowane,
+    // bo iPhone po zakończeniu odtwarzania potrafi wyświetlić pustą klatkę.
+    var schowaj = function () { v.classList.add('koniec'); try { v.pause(); } catch (e) {} };
+    if (spokojnie) { schowaj(); }
+    else {
+      v.addEventListener('timeupdate', function () { if (v.duration && v.currentTime >= v.duration - 0.2) schowaj(); });
+      v.addEventListener('ended', schowaj);
+      v.addEventListener('error', schowaj);
+      var p = v.play();
+      if (p && p.catch) p.catch(schowaj);
+    }
+  }
+
+  // Kreator wiadomości: nic nie jest wysyłane przez stronę, tekst trafia do aplikacji w telefonie.
+  var NUMER = '48732931287';
+  var f = document.getElementById('kreator');
+  if (!f) return;
+  var dymek = document.getElementById('dymek');
+  var wa = document.getElementById('wa');
+  var sms = document.getElementById('sms');
+
+  function wartosc(nazwa) { return (f.elements[nazwa].value || '').trim(); }
+
+  function zloz() {
+    var usluga = wartosc('usluga');
+    var linie = [];
+    linie.push(usluga === 'Inna sprawa'
+      ? 'Dzień dobry, mam pytanie.'
+      : 'Dzień dobry, chcę umówić wizytę: ' + usluga.toLowerCase() + '.');
+    if (wartosc('auto'))   linie.push('Auto: ' + wartosc('auto'));
+    if (wartosc('opis'))   linie.push(wartosc('opis'));
+    if (wartosc('termin')) linie.push('Termin: ' + wartosc('termin'));
+    if (wartosc('imie'))   linie.push(wartosc('imie'));
+    return linie.join('\n');
+  }
+
+  function odswiez() {
+    var tekst = zloz();
+    var kod = encodeURIComponent(tekst);
+    dymek.textContent = tekst;
+    wa.href = 'https://wa.me/' + NUMER + '?text=' + kod;
+    sms.href = 'sms:+' + NUMER + '?&body=' + kod;
+  }
+
+  f.addEventListener('input', odswiez);
+  f.addEventListener('change', odswiez);
+  f.addEventListener('submit', function (e) { e.preventDefault(); wa.click(); });
+  odswiez();
+})();
+</script>
+</body>
+</html>

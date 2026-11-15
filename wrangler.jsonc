@@ -1,0 +1,8 @@
+{
+  // Nazwa musi być taka sama jak nazwa projektu w panelu Cloudflare.
+  "name": "aged-sun-ecb2",
+  "compatibility_date": "2026-11-15",
+  "assets": {
+    "directory": "./public"
+  }
+}
