@@ -122,7 +122,13 @@ h1, h2, h3 { font-family: "Archivo", sans-serif; font-weight: 800; font-stretch:
 
 /* ───── góra strony ───── */
 .gora { background: var(--czern); color: var(--tekst); position: relative; overflow: hidden; }
-.gora::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--kreska); z-index: 2; }
+.gora::after, .wizyta::before, .wizyta::after, .stopka::before { content: ""; position: absolute; left: 0; right: 0; height: 3px; z-index: 2;
+  background: linear-gradient(90deg, #C2932B 0%, #F2D27C 50%, #C2932B 100%); animation: pas 3.2s ease-in-out infinite; }
+.gora::after { bottom: 0; }
+.wizyta::before, .stopka::before { top: 0; }
+.wizyta::after { bottom: 0; }
+@keyframes pas { 0%, 100% { opacity: .7; box-shadow: 0 0 4px rgba(217,174,67,.35); } 50% { opacity: 1; box-shadow: 0 0 16px rgba(242,210,124,.85); } }
+html.zamkniete .gora::after, html.zamkniete .wizyta::before, html.zamkniete .wizyta::after, html.zamkniete .stopka::before { background: linear-gradient(90deg, #6E5722 0%, #A38A48 50%, #6E5722 100%); animation-duration: 5s; }
 .pasek { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 1rem; position: relative; z-index: 2; }
 .marka { display: inline-flex; align-items: center; gap: .7rem; text-decoration: none; font-weight: 800; font-stretch: 125%; font-size: clamp(.9rem, 3.6vw, 1.05rem); letter-spacing: .01em; white-space: nowrap; }
 .marka img { width: 2.75rem; height: 2.75rem; }
@@ -132,7 +138,7 @@ h1, h2, h3 { font-family: "Archivo", sans-serif; font-weight: 800; font-stretch:
 .menu .tel { color: var(--zloto-jasne); font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .menu .ukryj-m { display: none; }
 
-.hero { display: grid; gap: 1.25rem; padding-block: 0 3.5rem; }
+.hero { display: grid; gap: 1.25rem; padding-block: 0 3.5rem; position: relative; }
 .hero-tekst { max-width: 40rem; position: relative; z-index: 1; }
 .hero h1 { font-size: clamp(1.9rem, 6.6vw, 4rem); filter: drop-shadow(0 4px 18px rgba(0,0,0,.85)); }
 .hero h1 span { display: block; }
@@ -151,6 +157,17 @@ h1, h2, h3 { font-family: "Archivo", sans-serif; font-weight: 800; font-stretch:
 .kino img, .kino video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .kino video { transition: opacity .3s linear; }
 .kino video.koniec { opacity: 0; visibility: hidden; }
+
+/* neon z lewej strony: OTWARTE albo ZAMKNIĘTE, pionowo, jak szyld na ścianie */
+.neon { position: absolute; z-index: 2; top: 0; left: calc(var(--bok) * -1 + .15rem); height: 56.25vw; width: 2.4rem; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+.neon span { writing-mode: vertical-rl; transform: rotate(180deg); font-weight: 800; font-stretch: 115%; text-transform: uppercase; letter-spacing: .32em; font-size: clamp(.95rem, 4.2vw, 1.35rem); white-space: nowrap;
+  color: #EFFFF4; text-shadow: 0 0 4px #2ECC71, 0 0 12px #2ECC71, 0 0 26px rgba(46,204,113,.75), 0 0 46px rgba(46,204,113,.45); opacity: .92;
+  animation: neon-start 2.2s linear 1 both, neon 5s ease-in-out 2.2s infinite; }
+.neon .n-zamkniete { display: none; }
+html.zamkniete .neon .n-otwarte { display: none; }
+html.zamkniete .neon .n-zamkniete { display: block; color: #FFE9E4; text-shadow: 0 0 4px #FF4A2E, 0 0 12px #FF4A2E, 0 0 26px rgba(255,74,46,.7), 0 0 46px rgba(255,74,46,.4); }
+@keyframes neon-start { 0% { opacity: 0; } 8% { opacity: .9; } 12% { opacity: .15; } 20% { opacity: .9; } 26% { opacity: .3; } 34%, 100% { opacity: .92; } }
+@keyframes neon { 0%, 100% { opacity: .92; } 50% { opacity: .78; } }
 
 /* status otwarcia */
 .status { display: flex; align-items: center; gap: .55rem; font-weight: 700; color: var(--zloto-jasne); }
@@ -178,7 +195,13 @@ html.zamkniete {
 }
 html.zamkniete .btn-glowny { box-shadow: none; border-color: #A38A48; }
 html.zamkniete .kino video { display: none; }
-html.zamkniete .kino img { filter: brightness(.4) saturate(.55); }
+html.zamkniete .kino img { filter: brightness(.34) saturate(.5); }
+/* lampa nad logo: ten sam kadr, jasny tylko w okolicy logo */
+html.zamkniete .kino::before { content: ""; position: absolute; inset: 0; z-index: 1; background: url("assets/warsztat.webp") center / cover no-repeat; filter: brightness(1.08) saturate(1.05);
+  -webkit-mask-image: radial-gradient(ellipse 17% 31% at 50% 36%, #000 45%, transparent 100%);
+          mask-image: radial-gradient(ellipse 17% 31% at 50% 36%, #000 45%, transparent 100%);
+  animation: lampa 6s ease-in-out infinite; }
+@keyframes lampa { 0%, 100% { opacity: 1; } 50% { opacity: .82; } }
 html.zamkniete .kafel img { filter: brightness(.7) saturate(.7); }
 html.zamkniete .z-hala::before { opacity: .22; filter: saturate(.5); }
 html.zamkniete .sezon { background: linear-gradient(90deg, #6E5722, #A38A48 50%, #6E5722); }
@@ -226,7 +249,7 @@ html.zamkniete .dol { grid-template-columns: 1fr; }
 .cennik .ile small { font-weight: 500; font-stretch: 100%; font-size: .82em; color: var(--szary); margin-right: .3em; }
 
 /* ───── umów wizytę ───── */
-.wizyta { color: var(--tekst); border-block: 1px solid var(--zloto-ciemne);
+.wizyta { color: var(--tekst); position: relative;
   background: repeating-linear-gradient(90deg, rgba(255,255,255,.016) 0 1px, rgba(255,255,255,0) 1px 3px), linear-gradient(180deg, #1D1B17 0%, #121110 100%); }
 .wizyta .naglowek p { color: #C9C2B0; }
 .kreator { display: grid; gap: 2rem; }
@@ -286,7 +309,7 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zl
 .telefony .nr { white-space: nowrap; }
 .telefony small { font-size: .95rem; font-weight: 500; font-stretch: 100%; color: var(--szary); }
 
-.stopka { background: var(--czern); color: #948C77; border-top: 1px solid var(--linia); padding-block: 2rem; font-size: .95rem; }
+.stopka { background: var(--czern); color: #948C77; position: relative; padding-block: 2rem; font-size: .95rem; }
 .stopka .wrap { display: flex; flex-wrap: wrap; gap: .5rem 2rem; justify-content: space-between; }
 .stopka strong { color: #fff; }
 
@@ -303,7 +326,9 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zl
   .dojazd { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 4rem; align-items: start; }
 }
 @media (min-width: 62rem) {
-  .hero { display: flex; align-items: center; min-height: clamp(31rem, 43vw, 41rem); padding-block: 3rem 6rem; }
+  .hero { display: flex; align-items: center; min-height: clamp(31rem, 43vw, 41rem); padding-block: 3rem 6rem; position: static; }
+  .neon { top: 50%; left: .35rem; height: auto; width: auto; transform: translateY(-50%); }
+  .neon span { font-size: clamp(1.15rem, 1.9vw, 1.9rem); }
   .hero-tekst { max-width: 33rem; }
   .kino { position: absolute; top: 0; right: 0; bottom: 0; width: 68%; margin: 0; aspect-ratio: auto;
     -webkit-mask-image: linear-gradient(90deg, transparent 4%, #000 54%), linear-gradient(180deg, #000 76%, transparent 100%);
@@ -318,7 +343,11 @@ input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--zl
   .podglad { position: sticky; top: 1.5rem; }
   .podglad .akcje { grid-template-columns: 1fr; }
 }
+@media (min-width: 86rem) {
+  .neon { left: calc((100vw - var(--szer)) / 2 - 3.4rem); }
+}
 @media (prefers-reduced-motion: reduce) {
+  .neon span, html.zamkniete .kino::before, .pas, .gora::after, .wizyta::before, .wizyta::after, .stopka::before { animation: none !important; }
   html { scroll-behavior: auto; }
   .dol { transition: none; }
   .status::before { animation: none; }
@@ -376,6 +405,7 @@ document.documentElement.classList.toggle('zamkniete', !stanWarsztatu().otwarte)
     </nav>
 
     <div class="hero">
+      <div class="neon" aria-hidden="true"><span class="n-otwarte">Otwarte</span><span class="n-zamkniete">Zamknięte</span></div>
       <div class="kino" aria-hidden="true">
         <img src="assets/warsztat.webp" alt="" width="1280" height="720">
         <video id="film" muted playsinline preload="auto" poster="assets/warsztat-start.webp" width="1280" height="720">
