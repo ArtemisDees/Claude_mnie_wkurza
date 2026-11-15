@@ -240,9 +240,13 @@ html.zamkniete .dol { grid-template-columns: 1fr; }
 .naglowek h2 { font-size: clamp(1.6rem, 4.4vw, 2.7rem); }
 .naglowek p { color: var(--szary); max-width: 38rem; }
 
-.grupa { display: grid; gap: 1.25rem; padding-block: 2rem; border-top: 1px solid var(--zloto-ciemne); position: relative; }
-.grupa::before { content: ""; position: absolute; left: 0; top: -1px; width: min(9rem, 40%); height: 3px; background: var(--metal); }
-.grupa:last-of-type { border-bottom: 1px solid var(--zloto-ciemne); }
+.grupa { display: grid; gap: 1.25rem; padding-block: 2rem; position: relative; }
+/* linie grup: to samo polerowane złoto co pasy między sekcjami, tylko cieńsze i bez ruchu */
+.grupa::before, .grupa:last-of-type::after { content: ""; position: absolute; left: 0; right: 0; height: 2px;
+  background: linear-gradient(180deg, rgba(255,255,255,.4) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,.25) 100%), linear-gradient(90deg, #B8892A 0%, #E9C867 30%, #F6DE94 50%, #E9C867 70%, #B8892A 100%); }
+.grupa::before { top: 0; }
+.grupa:last-of-type::after { bottom: 0; }
+html.zamkniete .grupa::before, html.zamkniete .grupa:last-of-type::after { filter: brightness(.62) saturate(.8); }
 .grupa h3 { font-size: clamp(1.25rem, 3vw, 1.7rem); }
 .grupa .opis-z-kaflem { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1rem 1.1rem; align-items: start; }
 .grupa .opis-z-kaflem > div:last-child { display: contents; }
